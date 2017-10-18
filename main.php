@@ -1,16 +1,17 @@
 <?php
 
-$test1 = '{[]}';   // Good
-$test2 = '{[}]';   // Bad
-$test3 = '{}[]()'; // Good
-$test4 = '{[}]}';  // Bad
+$tests = [
+    'test1' => '{[()]}',   // Good
+    'test2' => '{[(])}',   // Bad
+    'test3' => '{{[[(())]]}}', // Good
+];
 
 function bracketsBalanceChecker($data) {
     $p = ['{' => '}', '[' => ']', '<' => '>', '(' => ')']; // Paranthesis
     $comp = [];   // Complements
     $data = str_split($data);
     
-    echo PHP_EOL . implode($data) . PHP_EOL;
+    //echo PHP_EOL . implode($data) . PHP_EOL;
     
     if (count($data) % 2) {
         $comp = $data;
@@ -26,10 +27,9 @@ function bracketsBalanceChecker($data) {
         }
     }
     
-    return empty($comp) ? 'Balanced' : 'Not Balanced';
+    return empty($comp) ? 'YES' : 'NO';
 }
 
-print_r(bracketsBalanceChecker($test1));
-print_r(bracketsBalanceChecker($test2));
-print_r(bracketsBalanceChecker($test3));
-print_r(bracketsBalanceChecker($test4));
+foreach ($tests as $test) {
+    echo bracketsBalanceChecker($test) . PHP_EOL;
+}
